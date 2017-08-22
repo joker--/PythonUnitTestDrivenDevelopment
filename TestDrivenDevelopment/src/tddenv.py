@@ -11,7 +11,7 @@ class TestDD(unittest.TestCase):
 	def setUp(self):
 		self.orgdir = os.getcwd()
 		self.dirname = tempfile.mkdtemp("tempySurjit");
-		print("oCreated Directory",self.dirname)
+		print("Created Directory",self.dirname)
 		os.chdir(self.dirname)
 
 	def test_1(self):
@@ -25,7 +25,12 @@ class TestDD(unittest.TestCase):
 
 	def test_emptydir(self):
 		''' If current directory is empty'''
-		self.assertTrue(glob.glob("*"),[],"Directory is not empty")
+		self.assertEqual(glob.glob("*"),[],"Directory is not empty")
+
+	def tearDown(self):
+		os.chdir(self.orgdir)
+		shutil.rmtree(self.dirname)
+		print("Cleaned up created directories")
 
 if __name__ == "__main__":
 	unittest.main()
